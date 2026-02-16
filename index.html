@@ -26,6 +26,7 @@
             background: linear-gradient(135deg, var(--azul) 0%, var(--verde) 100%);
             min-height: 100vh;
             color: var(--escuro);
+            overflow-x: hidden;
         }
 
         .container {
@@ -34,9 +35,14 @@
             padding: 20px;
         }
 
-        /* ========== TELAS ========== */
         .tela {
             display: none;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .tela.ativa {
@@ -157,32 +163,14 @@
             border-color: var(--verde);
         }
 
-        .erro {
-            background: #FADBD8;
-            color: var(--vermelho);
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 13px;
-            display: none;
-        }
-
-        .erro.mostrar {
-            display: block;
-        }
-
-        .sucesso {
+        .sync-badge {
             background: #D4EDDA;
             color: #155724;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
             margin-bottom: 15px;
-            font-size: 13px;
-            display: none;
-        }
-
-        .sucesso.mostrar {
-            display: block;
+            text-align: center;
         }
 
         /* ========== DASHBOARD PAIS ========== */
@@ -195,6 +183,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .admin-header h2 {
@@ -214,7 +204,7 @@
 
         .admin-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -286,10 +276,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .tarefa-info {
             flex: 1;
+            min-width: 200px;
         }
 
         .tarefa-titulo {
@@ -508,11 +501,6 @@
             animation: fadeIn 0.3s;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
         .modal.ativo {
             display: flex;
             align-items: flex-end;
@@ -593,6 +581,661 @@
             border-color: var(--verde);
         }
 
+        .desejo-item {
+            padding: 12px;
+            background: #FFF8E1;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--amarelo);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .desejo-barra {
+            width: 100%;
+            height: 8px;
+            background: #E0E0E0;
+            border-radius: 4px;
+            margin: 8px 0;
+            overflow: hidden;
+        }
+
+        .desejo-progresso {
+            height: 100%;
+            background: linear-gradient(90deg, var(--verde) 0%, var(--amarelo) 100%);
+            transition: width 0.3s;
+        }
+
+        .desejo-texto {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .desejo-titulo {
+            font-weight: bold;
+            color: var(--escuro);
+            margin-bottom: 3px;
+        }
+
+        .desejo-preco {
+            font-size: 12px;
+            color: var(--cinza);
+        }
+
+        /* ========== CALENDÁRIO ========== */
+        .calendario-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .calendario-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendario-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .calendario-nav button {
+            background: var(--verde);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .calendario-nav button:hover {
+            background: #27AE60;
+        }
+
+        .calendario-titulo {
+            color: var(--verde);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .calendario-vista {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .calendario-vista button {
+            background: var(--claro);
+            border: 2px solid var(--claro);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--escuro);
+            transition: all 0.3s;
+        }
+
+        .calendario-vista button.ativo {
+            background: var(--verde);
+            color: white;
+            border-color: var(--verde);
+        }
+
+        /* VISTA MÊS */
+        .calendario-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .calendario-dia-nome {
+            text-align: center;
+            font-weight: bold;
+            color: var(--verde);
+            padding: 10px;
+            border-bottom: 2px solid var(--claro);
+        }
+
+        .calendario-dia {
+            min-height: 100px;
+            border: 1px solid var(--claro);
+            border-radius: 8px;
+            padding: 8px;
+            background: white;
+            transition: all 0.3s;
+        }
+
+        .calendario-dia:hover {
+            border-color: var(--verde);
+            box-shadow: 0 3px 8px rgba(46,204,113,0.15);
+        }
+
+        .calendario-dia.outro-mes {
+            background: #F9F9F9;
+            color: var(--cinza);
+        }
+
+        .calendario-dia.hoje {
+            background: linear-gradient(135deg, rgba(46,204,113,0.1) 0%, rgba(52,152,219,0.1) 100%);
+            border: 2px solid var(--verde);
+            font-weight: bold;
+        }
+
+        .calendario-dia-numero {
+            font-weight: bold;
+            color: var(--escuro);
+            margin-bottom: 6px;
+        }
+
+        .calendario-dia.outro-mes .calendario-dia-numero {
+            color: var(--cinza);
+        }
+
+        .calendario-tarefas {
+            font-size: 11px;
+            max-height: 60px;
+            overflow-y: auto;
+        }
+
+        .calendario-tarefa-mini {
+            background: linear-gradient(135deg, var(--verde) 0%, #27AE60 100%);
+            color: white;
+            padding: 3px 5px;
+            border-radius: 3px;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .calendario-tarefa-mini:hover {
+            background: #27AE60;
+            transform: scale(1.02);
+        }
+
+        .calendario-tarefa-mini.concluida {
+            background: var(--amarelo);
+            color: var(--escuro);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        /* VISTA SEMANA */
+        .calendario-semana {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .calendario-dia-semana {
+            background: white;
+            border: 2px solid var(--claro);
+            border-radius: 12px;
+            padding: 12px;
+            min-height: 250px;
+        }
+
+        .calendario-dia-semana.hoje {
+            border-color: var(--verde);
+            background: #F0FFF4;
+        }
+
+        .calendario-semana-header {
+            font-weight: bold;
+            color: var(--verde);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .calendario-semana-tarefas {
+            font-size: 12px;
+            max-height: 190px;
+            overflow-y: auto;
+        }
+
+        .calendario-semana-tarefa {
+            background: #F0FFF4;
+            border-left: 4px solid var(--verde);
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .calendario-semana-tarefa:hover {
+            transform: translateX(4px);
+            box-shadow: 0 2px 6px rgba(46,204,113,0.2);
+        }
+
+        .calendario-semana-tarefa.concluida {
+            opacity: 0.6;
+            background: #E8F8F5;
+            border-left-color: var(--amarelo);
+        }
+
+        .calendario-semana-tarefa-titulo {
+            font-weight: bold;
+            color: var(--escuro);
+            margin-bottom: 3px;
+        }
+
+        .calendario-semana-tarefa-coins {
+            font-size: 11px;
+            color: var(--cinza);
+        }
+
+        /* VISTA ANO */
+        .calendario-minical {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .calendario-minical-mes {
+            background: white;
+            border: 1px solid var(--claro);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .calendario-minical-mes:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .calendario-minical-titulo {
+            font-weight: bold;
+            color: var(--verde);
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .calendario-minical-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+
+        .calendario-minical-dia {
+            width: 100%;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            border-radius: 3px;
+            background: var(--claro);
+            color: var(--escuro);
+        }
+
+        .calendario-minical-dia.tem-tarefa {
+            background: var(--verde);
+            color: white;
+            font-weight: bold;
+        }
+
+        .calendario-minical-dia.hoje {
+            background: var(--azul);
+            color: white;
+            border: 1px solid var(--verde);
+        }
+
+        @media (max-width: 768px) {
+
+        .desejo-preco {
+            font-size: 12px;
+            color: var(--cinza);
+        }
+
+        /* ========== CALENDÁRIO ========== */
+        .calendario-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+
+        .calendario-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .calendario-nav {
+            display: flex;
+            gap: 10px;
+        }
+
+        .calendario-nav button {
+            background: var(--verde);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .calendario-nav button:hover {
+            background: #27AE60;
+            transform: translateY(-2px);
+        }
+
+        .calendario-titulo {
+            color: var(--verde);
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .calendario-vista {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .calendario-vista button {
+            background: var(--claro);
+            border: 2px solid var(--claro);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--escuro);
+            transition: all 0.3s;
+        }
+
+        .calendario-vista button.ativo {
+            background: var(--verde);
+            color: white;
+            border-color: var(--verde);
+            transform: scale(1.05);
+        }
+
+        /* VISTA MÊS */
+        .calendario-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .calendario-dia-nome {
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            background: var(--verde);
+            padding: 10px;
+            border-radius: 6px 6px 0 0;
+            font-size: 12px;
+        }
+
+        .calendario-dia {
+            min-height: 110px;
+            border: 2px solid var(--claro);
+            border-radius: 8px;
+            padding: 8px;
+            background: white;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calendario-dia:hover {
+            border-color: var(--verde);
+            box-shadow: 0 5px 15px rgba(46,204,113,0.2);
+            transform: translateY(-3px);
+        }
+
+        .calendario-dia.outro-mes {
+            background: #F9F9F9;
+            color: var(--cinza);
+            opacity: 0.6;
+        }
+
+        .calendario-dia.hoje {
+            background: linear-gradient(135deg, rgba(46,204,113,0.15) 0%, rgba(52,152,219,0.1) 100%);
+            border: 3px solid var(--verde);
+            box-shadow: 0 0 0 2px rgba(46,204,113,0.2);
+        }
+
+        .calendario-dia-numero {
+            font-weight: bold;
+            color: var(--escuro);
+            margin-bottom: 6px;
+            font-size: 13px;
+        }
+
+        .calendario-dia.outro-mes .calendario-dia-numero {
+            color: var(--cinza);
+        }
+
+        .calendario-tarefas {
+            font-size: 10px;
+            max-height: 65px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .calendario-tarefa-mini {
+            background: linear-gradient(135deg, var(--verde) 0%, #27AE60 100%);
+            color: white;
+            padding: 4px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .calendario-tarefa-mini:hover {
+            background: #27AE60;
+            transform: scale(1.03);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .calendario-tarefa-mini.concluida {
+            background: var(--amarelo);
+            color: var(--escuro);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        /* VISTA SEMANA */
+        .calendario-semana {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .calendario-dia-semana {
+            background: white;
+            border: 2px solid var(--claro);
+            border-radius: 12px;
+            padding: 12px;
+            min-height: 280px;
+            transition: all 0.3s;
+        }
+
+        .calendario-dia-semana:hover {
+            border-color: var(--verde);
+            box-shadow: 0 5px 15px rgba(46,204,113,0.15);
+        }
+
+        .calendario-dia-semana.hoje {
+            border-color: var(--verde);
+            background: linear-gradient(135deg, #F0FFF4 0%, rgba(52,152,219,0.05) 100%);
+            box-shadow: 0 0 0 3px rgba(46,204,113,0.1);
+        }
+
+        .calendario-semana-header {
+            font-weight: bold;
+            color: var(--verde);
+            margin-bottom: 10px;
+            font-size: 13px;
+            text-align: center;
+            border-bottom: 2px solid var(--claro);
+            padding-bottom: 8px;
+        }
+
+        .calendario-semana-header .numero {
+            display: block;
+            font-size: 16px;
+            color: var(--escuro);
+            margin-top: 4px;
+        }
+
+        .calendario-semana-tarefas {
+            font-size: 11px;
+            max-height: 220px;
+            overflow-y: auto;
+        }
+
+        .calendario-semana-tarefa {
+            background: #F0FFF4;
+            border-left: 4px solid var(--verde);
+            padding: 8px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .calendario-semana-tarefa:hover {
+            transform: translateX(4px);
+            box-shadow: 0 3px 8px rgba(46,204,113,0.2);
+            background: rgba(46,204,113,0.08);
+        }
+
+        .calendario-semana-tarefa.concluida {
+            opacity: 0.6;
+            background: #E8F8F5;
+            border-left-color: var(--amarelo);
+        }
+
+        .calendario-semana-tarefa-titulo {
+            font-weight: bold;
+            color: var(--escuro);
+            margin-bottom: 3px;
+        }
+
+        .calendario-semana-tarefa-coins {
+            font-size: 10px;
+            color: var(--cinza);
+        }
+
+        /* VISTA ANO */
+        .calendario-minical {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .calendario-minical-mes {
+            background: white;
+            border: 2px solid var(--claro);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .calendario-minical-mes:hover {
+            border-color: var(--verde);
+            box-shadow: 0 5px 15px rgba(46,204,113,0.2);
+            transform: translateY(-2px);
+        }
+
+        .calendario-minical-titulo {
+            font-weight: bold;
+            color: var(--verde);
+            margin-bottom: 8px;
+            font-size: 13px;
+            display: block;
+        }
+
+        .calendario-minical-ano {
+            font-size: 11px;
+            color: var(--cinza);
+            margin-bottom: 8px;
+        }
+
+        .calendario-minical-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 3px;
+        }
+
+        .calendario-minical-dia-nome {
+            font-size: 9px;
+            font-weight: bold;
+            color: var(--verde);
+            padding: 2px;
+        }
+
+        .calendario-minical-dia {
+            width: 100%;
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            border-radius: 3px;
+            background: var(--claro);
+            color: var(--escuro);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .calendario-minical-dia:hover {
+            transform: scale(1.1);
+        }
+
+        .calendario-minical-dia.tem-tarefa {
+            background: var(--verde);
+            color: white;
+            font-weight: bold;
+        }
+
+        .calendario-minical-dia.tem-tarefa:hover {
+            background: #27AE60;
+        }
+
+        .calendario-minical-dia.hoje {
+            background: var(--azul);
+            color: white;
+            border: 1px solid var(--verde);
+            font-weight: bold;
+        }
+
         @media (max-width: 768px) {
             .admin-grid {
                 grid-template-columns: 1fr;
@@ -600,6 +1243,20 @@
             
             .app-header h1 {
                 font-size: 20px;
+            }
+
+            .login-container {
+                margin: 30px auto;
+                padding: 20px;
+            }
+
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+
+            .tarefa-item {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -611,6 +1268,7 @@
             <div class="login-header">
                 <h1>🥥 Zé Coquinho</h1>
                 <p>Seu amigo IA para desenvolvimento integral</p>
+                <p style="margin-top: 10px; font-size: 12px; color: var(--verde);">✅ Sincronizado em todos os dispositivos</p>
             </div>
 
             <div class="login-tabs">
@@ -619,34 +1277,32 @@
             </div>
 
             <div id="aba-pais">
-                <div class="sucesso" id="sucesso-pais"></div>
-                <div class="erro" id="erro-pais"></div>
+                <div class="sync-badge">🔄 Dados sincronizados automaticamente</div>
                 <div class="form-group">
                     <label>Email:</label>
                     <input type="email" id="email-pais" placeholder="Pablojrodrigues@gmail.com">
                 </div>
                 <div class="form-group">
-                    <label>Senha (qualquer senha funciona para teste):</label>
-                    <input type="password" id="senha-pais" placeholder="Digite algo para testar">
+                    <label>Senha:</label>
+                    <input type="password" id="senha-pais" placeholder="Digite algo">
                 </div>
-                <button class="btn btn-primary" onclick="loginPaisTeste()">✅ TESTAR DASHBOARD</button>
-                <p style="text-align: center; margin-top: 15px; color: var(--cinza); font-size: 12px;">💡 Clique acima para entrar no painel dos pais</p>
+                <button class="btn btn-primary" onclick="loginPaisTeste()">✅ ENTRAR</button>
             </div>
 
             <div id="aba-crianca" style="display: none;">
+                <div class="sync-badge">🔄 Dados sincronizados automaticamente</div>
                 <div class="form-group">
-                    <label>Escolha a Criança:</label>
+                    <label>Criança:</label>
                     <select id="seleciona-crianca">
                         <option value="">Selecione...</option>
                         <option value="theo">👦 Theo da Rosa Rodrigues</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Código de Acesso (PIN):</label>
+                    <label>PIN:</label>
                     <input type="password" id="pin-crianca" placeholder="1234">
                 </div>
-                <button class="btn btn-primary" onclick="loginCriancaTeste()">✅ TESTAR APP</button>
-                <p style="text-align: center; margin-top: 15px; color: var(--cinza); font-size: 12px;">💡 Clique acima para entrar no app do Theo</p>
+                <button class="btn btn-primary" onclick="loginCriancaTeste()">✅ ENTRAR</button>
             </div>
         </div>
     </div>
@@ -657,26 +1313,27 @@
             <div class="admin-header">
                 <div>
                     <h2>👨‍💼 Dashboard Pais</h2>
-                    <p style="color: var(--cinza); font-size: 14px; margin-top: 5px;" id="email-responsavel">Pablojrodrigues@gmail.com</p>
+                    <p style="color: var(--cinza); font-size: 14px; margin-top: 5px;">Pablojrodrigues@gmail.com</p>
                 </div>
                 <button class="btn-logout" onclick="voltarLogin()">Sair</button>
             </div>
 
-            <!-- STATS GERAIS -->
+            <div class="sync-badge">📱 Abra em outro dispositivo para sincronizar em tempo real</div>
+
             <div class="admin-grid">
                 <div class="card">
                     <div class="card-title">📊 Resumo de Theo</div>
                     <div class="stats-container">
                         <div class="stat-item">
-                            <div class="stat-value" id="total-tarefas">3</div>
+                            <div class="stat-value" id="total-tarefas">0</div>
                             <div class="stat-label">Tarefas</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value" id="tarefas-concluidas">1</div>
-                            <div class="stat-label">Concluídas</div>
+                            <div class="stat-value" id="tarefas-concluidas">0</div>
+                            <div class="stat-label">Feitas</div>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-value" id="taxa-conclusao">33%</div>
+                            <div class="stat-value" id="taxa-conclusao">0%</div>
                             <div class="stat-label">Taxa</div>
                         </div>
                     </div>
@@ -686,12 +1343,13 @@
                     <div class="card-title">👦 Theo da Rosa Rodrigues</div>
                     <div style="background: #F0FFF4; padding: 15px; border-radius: 10px; border-left: 4px solid var(--verde);">
                         <div style="font-weight: bold; color: var(--escuro); margin-bottom: 5px;">Theo da Rosa Rodrigues</div>
-                        <div style="font-size: 13px; color: var(--cinza);" id="coins-theo">💰 150 coins | ⭐ Nível 2</div>
+                        <div style="font-size: 13px; color: var(--cinza);">
+                            <span id="coins-theo">💰 0 coins</span> | <span id="nivel-theo">⭐ Nível 1</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- CRIAR TAREFA -->
             <div class="tarefa-form">
                 <h3>➕ Criar Nova Tarefa para Theo</h3>
                 <div class="form-group">
@@ -716,35 +1374,104 @@
                         <option value="Responsabilidade">Responsabilidade</option>
                     </select>
                 </div>
-                <button class="btn btn-primary" onclick="criarTarefaTeste()">Criar Tarefa</button>
-            </div>
-
-            <!-- LISTA DE TAREFAS -->
-            <div class="tarefa-lista">
-                <h3 style="color: var(--verde); margin-bottom: 15px;">📋 Tarefas de Theo</h3>
-                <div id="lista-tarefas">
-                    <div class="tarefa-item">
-                        <div class="tarefa-info">
-                            <div class="tarefa-titulo">✅ Escovar os dentes</div>
-                            <div class="tarefa-coins">10 coins • Higiene</div>
-                        </div>
-                        <button class="btn-deletar" onclick="alert('Tarefa deletada!')">Deletar</button>
-                    </div>
-                    <div class="tarefa-item">
-                        <div class="tarefa-info">
-                            <div class="tarefa-titulo">Organizar meu quarto</div>
-                            <div class="tarefa-coins">15 coins • Organização</div>
-                        </div>
-                        <button class="btn-deletar" onclick="alert('Tarefa deletada!')">Deletar</button>
-                    </div>
-                    <div class="tarefa-item">
-                        <div class="tarefa-info">
-                            <div class="tarefa-titulo">Fazer lição de casa</div>
-                            <div class="tarefa-coins">20 coins • Atividades</div>
-                        </div>
-                        <button class="btn-deletar" onclick="alert('Tarefa deletada!')">Deletar</button>
+                <div class="form-group">
+                    <label>Frequência:</label>
+                    <select id="frequencia-tarefa" onchange="mudarFrequencia()">
+                        <option value="diario">📅 Diário</option>
+                        <option value="dias_semana">📆 Dias específicos</option>
+                        <option value="data_unica">📌 Data específica</option>
+                    </select>
+                </div>
+                <div class="form-group" id="dias-semana-group" style="display:none;">
+                    <label>Dias da semana:</label>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;font-size:12px;">
+                        <label><input type="checkbox" value="1" class="dia-semana"> Seg</label>
+                        <label><input type="checkbox" value="2" class="dia-semana"> Ter</label>
+                        <label><input type="checkbox" value="3" class="dia-semana"> Qua</label>
+                        <label><input type="checkbox" value="4" class="dia-semana"> Qui</label>
+                        <label><input type="checkbox" value="5" class="dia-semana"> Sex</label>
+                        <label><input type="checkbox" value="6" class="dia-semana"> Sáb</label>
+                        <label><input type="checkbox" value="0" class="dia-semana"> Dom</label>
                     </div>
                 </div>
+                <div class="form-group" id="data-unica-group" style="display:none;">
+                    <label>Data específica:</label>
+                    <input type="date" id="data-unica-tarefa">
+                </div>
+                <div class="form-group" id="horario-group" style="display:none;">
+                    <label>Horário:</label>
+                    <select id="horario-tarefa">
+                        <option value="">Sem horário específico</option>
+                        <option value="10-11">🌅 10:00 às 11:00</option>
+                        <option value="18-19">🌆 18:00 às 19:00</option>
+                    </select>
+                </div>
+                <div class="form-group" id="frequencia-mes-group" style="display:none;">
+                    <label>Ocorre também:</label>
+                    <select id="frequencia-mes-tarefa">
+                        <option value="">Sempre nos dias selecionados</option>
+                        <option value="ultima-sexta">📅 1x por mês na última sexta</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" onclick="criarTarefa()">Criar Tarefa</button>
+            </div>
+
+            <div class="tarefa-lista">
+                <h3 style="color: var(--verde); margin-bottom: 15px;">📋 Tarefas de Theo</h3>
+                <div id="lista-tarefas"><p style="color: var(--cinza);">Nenhuma tarefa criada</p></div>
+            </div>
+
+            <!-- CALENDÁRIO EXPANDIDO -->
+            <div class="calendario-container">
+                <div class="calendario-header">
+                    <div>
+                        <h3 class="calendario-titulo">📅 Fevereiro de 2026</h3>
+                    </div>
+                    <div class="calendario-nav">
+                        <button onclick="mudarMes(-1)">← Anterior</button>
+                        <button onclick="mudarMes(0)">📍 Hoje</button>
+                        <button onclick="mudarMes(1)">Próximo →</button>
+                    </div>
+                </div>
+
+                <div class="calendario-vista">
+                    <button class="ativo" onclick="mudarVistaCalendario('mes')">📅 Mês</button>
+                    <button onclick="mudarVistaCalendario('semana')">📆 Semana</button>
+                    <button onclick="mudarVistaCalendario('ano')">📊 Ano</button>
+                </div>
+
+                <!-- VISTA MÊS -->
+                <div id="vista-mes" style="display: block;">
+                    <div id="calendario-mes" class="calendario-grid"></div>
+                </div>
+
+                <!-- VISTA SEMANA -->
+                <div id="vista-semana" style="display: none;">
+                    <div id="calendario-semana" class="calendario-semana"></div>
+                </div>
+
+                <!-- VISTA ANO -->
+                <div id="vista-ano" style="display: none;">
+                    <div id="calendario-ano" class="calendario-minical"></div>
+                </div>
+            </div>
+
+            <div class="tarefa-form" style="margin-top:30px;">
+                <h3>🎁 Lista de Desejos de Theo</h3>
+                <div class="form-group">
+                    <label>Desejo:</label>
+                    <input type="text" id="titulo-desejo" placeholder="Ex: Comprar um livro novo">
+                </div>
+                <div class="form-group">
+                    <label>Preço (R$):</label>
+                    <input type="number" id="preco-desejo" min="0" step="0.01" placeholder="Ex: 60.00">
+                </div>
+                <button class="btn btn-primary" onclick="criarDesejo()">Adicionar Desejo</button>
+            </div>
+
+            <div class="tarefa-lista">
+                <h3 style="color: var(--verde); margin-bottom: 15px;">🎯 Desejos de Theo</h3>
+                <div id="lista-desejos"><p style="color: var(--cinza);">Nenhum desejo cadastrado</p></div>
             </div>
         </div>
     </div>
@@ -758,7 +1485,6 @@
             </div>
 
             <div class="app-content">
-                <!-- ZÉ AVATAR -->
                 <div class="ze-avatar">
                     <svg viewBox="0 0 150 180" xmlns="http://www.w3.org/2000/svg">
                         <ellipse cx="45" cy="155" rx="15" ry="18" fill="#8B4513"/>
@@ -790,61 +1516,30 @@
                     </svg>
                 </div>
 
-                <!-- SAUDAÇÃO -->
                 <div class="saudacao" id="saudacao-crianca">
                     Oi, Theo! Que legal te ver! Vamos conquistar os objetivos de hoje? 💪
                 </div>
 
-                <!-- STATS -->
                 <div class="stats-bar">
                     <div class="stat-card">
-                        <div class="stat-value" id="tarefas-feitas">1</div>
+                        <div class="stat-value" id="tarefas-feitas">0</div>
                         <div class="stat-label">✅ Feitas</div>
                     </div>
                     <div class="stat-card coins">
-                        <div class="stat-value" id="coins-crianca">150</div>
+                        <div class="stat-value" id="coins-crianca">0</div>
                         <div class="stat-label">💰 Coins</div>
                     </div>
                     <div class="stat-card nivel">
-                        <div class="stat-value" id="nivel-crianca">2</div>
+                        <div class="stat-value" id="nivel-crianca">1</div>
                         <div class="stat-label">⭐ Nível</div>
                     </div>
                 </div>
 
-                <!-- TAREFAS -->
                 <div class="tarefas-secao">
                     <h3>📋 Tarefas de Hoje</h3>
-                    <div id="tarefas-crianca">
-                        <div class="tarefa-card concluida" onclick="alert('Tarefa concluída! ✅')">
-                            <div class="checkbox">✓</div>
-                            <div class="tarefa-info">
-                                <div class="tarefa-titulo">Escovar os dentes</div>
-                                <div class="tarefa-desc">Manhã e noite</div>
-                            </div>
-                            <div class="tarefa-coins-badge">+10</div>
-                        </div>
-
-                        <div class="tarefa-card" onclick="alert('Clique para marcar como concluído!')">
-                            <div class="checkbox"></div>
-                            <div class="tarefa-info">
-                                <div class="tarefa-titulo">Organizar meu quarto</div>
-                                <div class="tarefa-desc">Arrumar a cama e guardar brinquedos</div>
-                            </div>
-                            <div class="tarefa-coins-badge">+15</div>
-                        </div>
-
-                        <div class="tarefa-card" onclick="alert('Clique para marcar como concluído!')">
-                            <div class="checkbox"></div>
-                            <div class="tarefa-info">
-                                <div class="tarefa-titulo">Fazer lição de casa</div>
-                                <div class="tarefa-desc">Matemática e Português</div>
-                            </div>
-                            <div class="tarefa-coins-badge">+20</div>
-                        </div>
-                    </div>
+                    <div id="tarefas-crianca"><p style="color: var(--cinza); text-align: center; padding: 20px;">Aguardando tarefas...</p></div>
                 </div>
 
-                <!-- BOTÕES -->
                 <div class="buttons-grid">
                     <button class="btn-grande btn-ze" onclick="abrirModal('ze')">💬 Conversa com Zé</button>
                     <button class="btn-grande btn-agenda" onclick="abrirModal('agenda')">📅 Agenda</button>
@@ -855,7 +1550,7 @@
         </div>
     </div>
 
-    <!-- MODAIS CRIANÇA -->
+    <!-- MODAIS -->
     <div id="modal-ze" class="modal">
         <div class="modal-conteudo">
             <div class="modal-header">
@@ -897,7 +1592,6 @@
                 <h2>🎨 Meus Projetos</h2>
                 <button class="close-btn" onclick="fecharModal('projetos')">×</button>
             </div>
-            
             <strong style="color: var(--verde); display: block; margin-bottom: 12px;">🔧 Maker:</strong>
             <div style="background: #FFF3E0; padding: 12px; border-radius: 8px; margin-bottom: 15px; font-size: 13px;">
                 ✨ <strong>Construindo um robô com LEGO</strong><br>
@@ -919,10 +1613,105 @@
     </div>
 
     <script>
-        // ========== FUNÇÕES BÁSICAS ==========
+        // ========== STORAGE & SYNC ==========
+        const STORAGE_KEY = 'zecoquinho_tarefas';
+        const STORAGE_DESEJOS = 'zecoquinho_desejos';
+        const VALOR_POR_COIN = 0.50; // 1 coin = R$ 0,50
+
+        function salvarTarefas(tarefas) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(tarefas));
+            window.dispatchEvent(new Event('tarefasAtualizadas'));
+        }
+
+        function carregarTarefas() {
+            const dados = localStorage.getItem(STORAGE_KEY);
+            return dados ? JSON.parse(dados) : [];
+        }
+
+        function salvarDesejos(desejos) {
+            localStorage.setItem(STORAGE_DESEJOS, JSON.stringify(desejos));
+            window.dispatchEvent(new Event('desejosAtualizados'));
+        }
+
+        function carregarDesejos() {
+            const dados = localStorage.getItem(STORAGE_DESEJOS);
+            return dados ? JSON.parse(dados) : [];
+        }
+
+        function coinsParaReais(coins) {
+            return (coins * VALOR_POR_COIN).toFixed(2);
+        }
+
+        function sincronizar() {
+            // Sincronização entre abas (storage event)
+            window.addEventListener('storage', (e) => {
+                if (e.key === STORAGE_KEY || e.key === STORAGE_DESEJOS) {
+                    atualizarStatsAdmin();
+                    renderizarTarefasAdmin();
+                    renderizarTarefasCrianca();
+                    atualizarStatsCrianca();
+                    renderizarDesejos();
+                    gerarCalendarioMes();
+                }
+            });
+
+            // Sincronização dentro da mesma aba (custom event)
+            window.addEventListener('tarefasAtualizadas', () => {
+                if (document.getElementById('tela-admin').classList.contains('ativa')) {
+                    atualizarStatsAdmin();
+                    renderizarTarefasAdmin();
+                    renderizarDesejos();
+                    gerarCalendarioMes();
+                }
+                if (document.getElementById('tela-crianca').classList.contains('ativa')) {
+                    renderizarTarefasCrianca();
+                    atualizarStatsCrianca();
+                }
+            });
+
+            window.addEventListener('desejosAtualizados', () => {
+                renderizarDesejos();
+                atualizarStatsAdmin();
+            });
+
+            // Polling adicional a cada 1 segundo como fallback
+            setInterval(() => {
+                if (document.getElementById('tela-crianca').classList.contains('ativa')) {
+                    renderizarTarefasCrianca();
+                    atualizarStatsCrianca();
+                }
+                if (document.getElementById('tela-admin').classList.contains('ativa')) {
+                    atualizarStatsAdmin();
+                    renderizarTarefasAdmin();
+                }
+            }, 1000);
+        }
+
+        // ========== TELAS ==========
         function mudarTela(nomeTela) {
             document.querySelectorAll('.tela').forEach(t => t.classList.remove('ativa'));
             document.getElementById('tela-' + nomeTela).classList.add('ativa');
+            
+            // Força atualização após trocar de tela
+            setTimeout(() => {
+                if (nomeTela === 'admin') {
+                    atualizarStatsAdmin();
+                    renderizarTarefasAdmin();
+                    renderizarDesejos();
+                    gerarCalendarioMes();
+                } else if (nomeTela === 'crianca') {
+                    renderizarTarefasCrianca();
+                    atualizarStatsCrianca();
+                }
+            }, 50);
+        }
+
+        function mudarFrequencia() {
+            const v = document.getElementById('frequencia-tarefa').value;
+            document.getElementById('dias-semana-group').style.display = v === 'dias_semana' ? 'block' : 'none';
+            document.getElementById('data-unica-group').style.display = v === 'data_unica' ? 'block' : 'none';
+            document.getElementById('horario-group').style.display = v === 'dias_semana' || v === 'data_unica' ? 'block' : 'none';
+            document.getElementById('frequencia-mes-group').style.display = v === 'dias_semana' ? 'block' : 'none';
         }
 
         function mudarAbaPais() {
@@ -939,7 +1728,7 @@
             document.querySelectorAll('.login-tab')[1].classList.add('ativo');
         }
 
-        // ========== LOGIN TESTES ==========
+        // ========== LOGIN ==========
         function loginPaisTeste() {
             mudarTela('admin');
         }
@@ -969,15 +1758,489 @@
         }
 
         // ========== TAREFAS ==========
-        function criarTarefaTeste() {
+        function criarTarefa() {
             const titulo = document.getElementById('titulo-tarefa').value.trim();
+            const desc = document.getElementById('desc-tarefa').value.trim();
+            const coins = parseInt(document.getElementById('coins-tarefa').value) || 10;
+            const categoria = document.getElementById('categoria-tarefa').value;
+            const frequencia = document.getElementById('frequencia-tarefa').value;
+
             if (!titulo) {
-                alert('⚠️ Digite o título da tarefa');
+                alert('⚠️ Digite o título');
                 return;
             }
-            alert('✅ Tarefa "' + titulo + '" criada com sucesso!');
+
+            let diasSemana = [];
+            let dataUnica = null;
+
+            if (frequencia === 'dias_semana') {
+                document.querySelectorAll('.dia-semana:checked').forEach(cb => {
+                    diasSemana.push(parseInt(cb.value, 10));
+                });
+                if (diasSemana.length === 0) {
+                    alert('⚠️ Selecione pelo menos um dia da semana');
+                    return;
+                }
+            } else if (frequencia === 'data_unica') {
+                dataUnica = document.getElementById('data-unica-tarefa').value || null;
+                if (!dataUnica) {
+                    alert('⚠️ Selecione uma data');
+                    return;
+                }
+            }
+
+            const horario = document.getElementById('horario-tarefa').value || '';
+            const frequenciaMes = document.getElementById('frequencia-mes-tarefa').value || '';
+
+            const tarefas = carregarTarefas();
+            tarefas.push({
+                id: 'tarefa_' + Date.now(),
+                titulo: titulo,
+                descricao: desc,
+                coins: coins,
+                categoria: categoria,
+                concluida: false,
+                criada_em: new Date().toISOString(),
+                frequencia: frequencia,
+                diasSemana: diasSemana,
+                dataUnica: dataUnica,
+                horario: horario,
+                frequenciaMes: frequenciaMes
+            });
+
+            salvarTarefas(tarefas);
+            alert('✅ Tarefa criada!');
             document.getElementById('titulo-tarefa').value = '';
             document.getElementById('desc-tarefa').value = '';
+            document.getElementById('coins-tarefa').value = '10';
+            document.getElementById('frequencia-tarefa').value = 'diario';
+            document.getElementById('horario-tarefa').value = '';
+            document.getElementById('frequencia-mes-tarefa').value = '';
+            document.querySelectorAll('.dia-semana').forEach(cb => cb.checked = false);
+            document.getElementById('data-unica-tarefa').value = '';
+            mudarFrequencia();
+            
+            // Força atualização imediata
+            setTimeout(() => {
+                atualizarStatsAdmin();
+                renderizarTarefasAdmin();
+                renderizarTarefasCrianca();
+                atualizarStatsCrianca();
+                gerarCalendarioMes();
+            }, 100);
+        }
+
+        function criarDesejo() {
+            const titulo = document.getElementById('titulo-desejo').value.trim();
+            const preco = parseFloat(document.getElementById('preco-desejo').value);
+
+            if (!titulo) {
+                alert('⚠️ Digite o nome do desejo');
+                return;
+            }
+            if (isNaN(preco) || preco <= 0) {
+                alert('⚠️ Informe um preço válido');
+                return;
+            }
+
+            const desejos = carregarDesejos();
+            desejos.push({
+                id: 'desejo_' + Date.now(),
+                titulo: titulo,
+                preco: preco
+            });
+            salvarDesejos(desejos);
+            
+            alert('✅ Desejo adicionado!');
+            document.getElementById('titulo-desejo').value = '';
+            document.getElementById('preco-desejo').value = '';
+
+            setTimeout(() => {
+                renderizarDesejos();
+                atualizarStatsAdmin();
+            }, 100);
+        }
+
+        function deletarDesejo(id) {
+            if (!confirm('Remover este desejo?')) return;
+            const desejos = carregarDesejos();
+            const atualizado = desejos.filter(d => d.id !== id);
+            salvarDesejos(atualizado);
+            
+            setTimeout(() => {
+                renderizarDesejos();
+            }, 100);
+        }
+
+        function deletarTarefa(id) {
+            if (confirm('Tem certeza?')) {
+                const tarefas = carregarTarefas();
+                console.log('Deletando tarefa:', id);
+                console.log('Tarefas antes:', tarefas);
+                const atualizado = tarefas.filter(t => t.id !== id);
+                console.log('Tarefas depois:', atualizado);
+                salvarTarefas(atualizado);
+                
+                // Força atualização imediata
+                setTimeout(() => {
+                    atualizarStatsAdmin();
+                    renderizarTarefasAdmin();
+                    renderizarTarefasCrianca();
+                    atualizarStatsCrianca();
+                    gerarCalendarioMes();
+                }, 100);
+            }
+        }
+
+        function completarTarefa(id) {
+            const tarefas = carregarTarefas();
+            const tarefa = tarefas.find(t => t.id === id);
+            if (tarefa) {
+                tarefa.concluida = !tarefa.concluida;
+                salvarTarefas(tarefas);
+                
+                // Força atualização imediata em ambas as telas
+                setTimeout(() => {
+                    renderizarTarefasCrianca();
+                    atualizarStatsCrianca();
+                    renderizarTarefasAdmin();
+                    atualizarStatsAdmin();
+                }, 100);
+            }
+        }
+
+        // ========== RENDER ADMIN ==========
+        function renderizarTarefasAdmin() {
+            const tarefas = carregarTarefas();
+            let html = '';
+
+            tarefas.forEach(tarefa => {
+                let detalhes = `${tarefa.coins} coins • ${tarefa.categoria}`;
+                
+                if (tarefa.horario) {
+                    const horarioFormatado = tarefa.horario === '10-11' ? '🌅 10-11h' : '🌆 18-19h';
+                    detalhes += ` • ${horarioFormatado}`;
+                }
+
+                if (tarefa.frequenciaMes === 'ultima-sexta') {
+                    detalhes += ' • 📅 + 1x/mês sexta';
+                }
+
+                html += `
+                    <div class="tarefa-item">
+                        <div class="tarefa-info">
+                            <div class="tarefa-titulo">${tarefa.concluida ? '✅ ' : ''}${tarefa.titulo}</div>
+                            <div class="tarefa-coins">${detalhes}</div>
+                        </div>
+                        <button class="btn-deletar" onclick="deletarTarefa(${tarefa.id})">Deletar</button>
+                    </div>
+                `;
+            });
+
+            document.getElementById('lista-tarefas').innerHTML = html || '<p style="color: var(--cinza);">Nenhuma tarefa</p>';
+        }
+
+        function atualizarStatsAdmin() {
+            const tarefas = carregarTarefas();
+            const concluidas = tarefas.filter(t => t.concluida).length;
+            const total = tarefas.length;
+            const taxa = total > 0 ? Math.round((concluidas / total) * 100) : 0;
+            const coinsTotal = tarefas.reduce((sum, t) => sum + (t.concluida ? t.coins : 0), 0);
+            const reaisTotal = coinsParaReais(coinsTotal);
+
+            document.getElementById('total-tarefas').textContent = total;
+            document.getElementById('tarefas-concluidas').textContent = concluidas;
+            document.getElementById('taxa-conclusao').textContent = taxa + '%';
+            document.getElementById('coins-theo').textContent = '💰 ' + coinsTotal + ' coins ≈ R$ ' + reaisTotal;
+            document.getElementById('nivel-theo').textContent = '⭐ Nível ' + (Math.floor(coinsTotal / 100) + 1);
+        }
+
+        // ========== CONTROLE DE CALENDÁRIO ==========
+        let dataAtualCalendario = new Date();
+
+        function mudarMes(direcao) {
+            if (direcao === 0) {
+                dataAtualCalendario = new Date();
+            } else {
+                dataAtualCalendario.setMonth(dataAtualCalendario.getMonth() + direcao);
+            }
+            renderizarCalendario();
+        }
+
+        function mudarVistaCalendario(vista) {
+            document.querySelectorAll('.calendario-vista button').forEach(b => b.classList.remove('ativo'));
+            event.target.classList.add('ativo');
+            document.getElementById('vista-mes').style.display = vista === 'mes' ? 'block' : 'none';
+            document.getElementById('vista-semana').style.display = vista === 'semana' ? 'block' : 'none';
+            document.getElementById('vista-ano').style.display = vista === 'ano' ? 'block' : 'none';
+            renderizarCalendario();
+        }
+
+        function renderizarCalendario() {
+            const vistaAtiva = document.querySelector('.calendario-vista button.ativo').textContent;
+            if (vistaAtiva.includes('Mês')) renderizarCalendarioMes();
+            else if (vistaAtiva.includes('Semana')) renderizarCalendarioSemana();
+            else if (vistaAtiva.includes('Ano')) renderizarCalendarioAno();
+        }
+
+        function obterTarefasDoAno(ano, mes, dia) {
+            const tarefas = carregarTarefas();
+            const data = new Date(ano, mes, dia);
+            const diaSemana = data.getDay();
+            const dataStr = data.toISOString().slice(0,10);
+
+            return tarefas.filter(t => {
+                if (!t.frequencia || t.frequencia === 'diario') return true;
+                if (t.frequencia === 'dias_semana') {
+                    if (!(t.diasSemana || []).includes(diaSemana)) return false;
+                    if (t.frequenciaMes === 'ultima-sexta' && diaSemana === 5) {
+                        const proximaSexta = new Date(ano, mes, dia + 7);
+                        if (proximaSexta.getMonth() !== mes) return true;
+                        return false;
+                    }
+                    return true;
+                }
+                if (t.frequencia === 'data_unica') return t.dataUnica === dataStr;
+                return false;
+            });
+        }
+
+        function renderizarCalendarioMes() {
+            const ano = dataAtualCalendario.getFullYear();
+            const mes = dataAtualCalendario.getMonth();
+            const hoje = new Date();
+            const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+            const dias = ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'];
+
+            // Atualizar título
+            document.querySelector('.calendario-titulo').textContent = `📅 ${meses[mes]} de ${ano}`;
+
+            // Criar header com dias da semana
+            let html = '';
+            dias.forEach(dia => {
+                html += `<div class="calendario-dia-nome">${dia}</div>`;
+            });
+
+            // Primeiro dia do mês
+            const primeiroDia = new Date(ano, mes, 1);
+            const ultimoDia = new Date(ano, mes + 1, 0);
+            const diasAnteriores = primeiroDia.getDay();
+
+            // Dias do mês anterior
+            const diasMesAnterior = new Date(ano, mes, 0).getDate();
+            for (let i = diasAnteriores - 1; i >= 0; i--) {
+                const diaNum = diasMesAnterior - i;
+                html += `<div class="calendario-dia outro-mes"><div class="calendario-dia-numero">${diaNum}</div></div>`;
+            }
+
+            // Dias do mês atual
+            for (let dia = 1; dia <= ultimoDia.getDate(); dia++) {
+                const data = new Date(ano, mes, dia);
+                const ehHoje = dia === hoje.getDate() && mes === hoje.getMonth() && ano === hoje.getFullYear();
+                const tarefasDodia = obterTarefasDoAno(ano, mes, dia);
+                
+                let classesDia = 'calendario-dia';
+                if (ehHoje) classesDia += ' hoje';
+
+                html += `<div class="${classesDia}">
+                    <div class="calendario-dia-numero">${dia}</div>
+                    <div class="calendario-tarefas">`;
+
+                tarefasDodia.forEach(t => {
+                    const classesConcluida = t.concluida ? 'concluida' : '';
+                    html += `<div class="calendario-tarefa-mini ${classesConcluida}" onclick="completarTarefa('${t.id}')" title="${t.titulo}">✓ ${t.titulo}</div>`;
+                });
+
+                html += `</div></div>`;
+            }
+
+            // Dias do próximo mês
+            const diasProximos = 42 - (diasAnteriores + ultimoDia.getDate());
+            for (let i = 1; i <= diasProximos; i++) {
+                html += `<div class="calendario-dia outro-mes"><div class="calendario-dia-numero">${i}</div></div>`;
+            }
+
+            document.getElementById('calendario-mes').innerHTML = html;
+        }
+
+        function renderizarCalendarioSemana() {
+            const ano = dataAtualCalendario.getFullYear();
+            const mes = dataAtualCalendario.getMonth();
+            const hoje = new Date();
+            const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+            const diasNome = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+
+            // Calcular primeira e última data da semana
+            let inicioSemana = new Date(dataAtualCalendario);
+            inicioSemana.setDate(inicioSemana.getDate() - inicioSemana.getDay());
+
+            let html = '';
+            for (let i = 0; i < 7; i++) {
+                const data = new Date(inicioSemana);
+                data.setDate(data.getDate() + i);
+                const ehHoje = data.getDate() === hoje.getDate() && data.getMonth() === hoje.getMonth() && data.getFullYear() === hoje.getFullYear();
+                const tarefasDodia = obterTarefasDoAno(data.getFullYear(), data.getMonth(), data.getDate());
+
+                let classesDia = 'calendario-dia-semana';
+                if (ehHoje) classesDia += ' hoje';
+
+                html += `<div class="${classesDia}">
+                    <div class="calendario-semana-header">
+                        ${diasNome[data.getDay()]}
+                        <span class="numero">${data.getDate()}</span>
+                        <span style="font-size:11px;font-weight:normal;">${meses[data.getMonth()].slice(0,3)}</span>
+                    </div>
+                    <div class="calendario-semana-tarefas">`;
+
+                tarefasDodia.forEach(t => {
+                    const classesConcluida = t.concluida ? 'concluida' : '';
+                    html += `<div class="calendario-semana-tarefa ${classesConcluida}" onclick="completarTarefa('${t.id}')">
+                        <div class="calendario-semana-tarefa-titulo">${t.concluida ? '✓ ' : '○ '}${t.titulo}</div>
+                        <div class="calendario-semana-tarefa-coins">${t.coins} coins ${t.horario ? '• ' + (t.horario === '10-11' ? '10-11h' : '18-19h') : ''}</div>
+                    </div>`;
+                });
+
+                html += `</div></div>`;
+            }
+
+            // Atualizar título
+            const proxInicioSemana = new Date(inicioSemana);
+            const proxFimSemana = new Date(inicioSemana);
+            proxFimSemana.setDate(proxFimSemana.getDate() + 6);
+            document.querySelector('.calendario-titulo').textContent = `📆 ${proxInicioSemana.getDate()} a ${proxFimSemana.getDate()} de ${meses[proxInicioSemana.getMonth()]}`;
+
+            document.getElementById('calendario-semana').innerHTML = html;
+        }
+
+        function renderizarCalendarioAno() {
+            const ano = dataAtualCalendario.getFullYear();
+            const hoje = new Date();
+            const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+
+            document.querySelector('.calendario-titulo').textContent = `📊 ${ano}`;
+
+            let html = '';
+
+            for (let mes = 0; mes < 12; mes++) {
+                const primeiroDia = new Date(ano, mes, 1);
+                const ultimoDia = new Date(ano, mes + 1, 0);
+                const diasAnteriores = primeiroDia.getDay();
+
+                html += `<div class="calendario-minical-mes">
+                    <div class="calendario-minical-titulo">${meses[mes]}</div>
+                    <div class="calendario-minical-ano">${ano}</div>
+                    <div class="calendario-minical-grid">`;
+
+                // Nomes dos dias
+                ['D','S','T','Q','Q','S','S'].forEach(d => {
+                    html += `<div class="calendario-minical-dia-nome">${d}</div>`;
+                });
+
+                // Dias do mês anterior
+                for (let i = 1; i <= diasAnteriores; i++) {
+                    html += `<div class="calendario-minical-dia"></div>`;
+                }
+
+                // Dias do mês
+                for (let dia = 1; dia <= ultimoDia.getDate(); dia++) {
+                    const tarefasDodia = obterTarefasDoAno(ano, mes, dia);
+                    const ehHoje = dia === hoje.getDate() && mes === hoje.getMonth() && ano === hoje.getFullYear();
+
+                    let classes = 'calendario-minical-dia';
+                    if (tarefasDodia.length > 0) classes += ' tem-tarefa';
+                    if (ehHoje) classes += ' hoje';
+
+                    html += `<div class="${classes}" title="${tarefasDodia.length} tarefa(s)">${dia}</div>`;
+                }
+
+                html += `</div></div>`;
+            }
+
+            document.getElementById('calendario-ano').innerHTML = html;
+        }
+
+        function gerarCalendarioMes() {
+            renderizarCalendario();
+        }
+
+        function renderizarDesejos() {
+            const container = document.getElementById('lista-desejos');
+            if (!container) return;
+
+            const desejos = carregarDesejos();
+            const tarefas = carregarTarefas();
+            const coinsTotal = tarefas.reduce((sum, t) => sum + (t.concluida ? t.coins : 0), 0);
+            const valorCoins = parseFloat(coinsParaReais(coinsTotal));
+
+            if (desejos.length === 0) {
+                container.innerHTML = '<p style="color: var(--cinza);">Nenhum desejo cadastrado</p>';
+                return;
+            }
+
+            let html = `<div style="background:#FFF3E0;padding:10px;border-radius:8px;margin-bottom:12px;font-size:12px;color:var(--cinza);">
+                💰 Saldo: ${coinsTotal} coins ≈ <strong>R$ ${valorCoins.toFixed(2)}</strong>
+            </div>`;
+
+            desejos.forEach(d => {
+                const necessario = Math.max(0, d.preco - valorCoins);
+                const porcent = Math.max(0, Math.min(100, (valorCoins / d.preco) * 100));
+                const atingido = necessario === 0;
+
+                html += `
+                    <div class="desejo-item">
+                        <div class="desejo-texto">
+                            <div class="desejo-titulo">🎁 ${d.titulo}</div>
+                            <div class="desejo-preco">Preço: <strong>R$ ${d.preco.toFixed(2)}</strong></div>
+                            <div class="desejo-barra">
+                                <div class="desejo-progresso" style="width: ${porcent}%;"></div>
+                            </div>
+                            <div style="font-size:11px;color:var(--cinza);">
+                                ${atingido ? '✅ Meta atingida! 🎉' : `⏳ Faltam R$ ${necessario.toFixed(2)}`}
+                            </div>
+                        </div>
+                        <button class="btn-deletar" onclick="deletarDesejo('${d.id}')">Remover</button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ========== RENDER CRIANÇA ==========
+        function renderizarTarefasCrianca() {
+            const tarefas = carregarTarefas();
+            let html = '';
+
+            tarefas.forEach(tarefa => {
+                const classe = tarefa.concluida ? 'concluida' : '';
+                const tarefaId = String(tarefa.id).replace(/'/g, "\\'");
+                html += `
+                    <div class="tarefa-card ${classe}" onclick="completarTarefa('${tarefa.id}')">
+                        <div class="checkbox">${tarefa.concluida ? '✓' : ''}</div>
+                        <div class="tarefa-info">
+                            <div class="tarefa-titulo">${tarefa.titulo}</div>
+                            <div class="tarefa-desc">${tarefa.descricao}</div>
+                        </div>
+                        <div class="tarefa-coins-badge">+${tarefa.coins}</div>
+                    </div>
+                `;
+            });
+
+            const container = document.getElementById('tarefas-crianca');
+            if (container) {
+                container.innerHTML = html || '<p style="color: var(--cinza); text-align: center; padding: 20px;">Aguardando tarefas...</p>';
+            }
+        }
+
+        function atualizarStatsCrianca() {
+            const tarefas = carregarTarefas();
+            const concluidas = tarefas.filter(t => t.concluida).length;
+            const coinsTotal = tarefas.reduce((sum, t) => sum + (t.concluida ? t.coins : 0), 0);
+            const nivel = Math.floor(coinsTotal / 100) + 1;
+
+            document.getElementById('tarefas-feitas').textContent = concluidas;
+            document.getElementById('coins-crianca').textContent = coinsTotal;
+            document.getElementById('nivel-crianca').textContent = nivel;
         }
 
         // ========== MODAIS ==========
@@ -1040,6 +2303,9 @@
                 }
             });
         });
+
+        // Inicializar sincronização
+        sincronizar();
     </script>
 </body>
 </html>
